@@ -1,6 +1,4 @@
-[![Build Status](https://travis-ci.org/libbitcoin/libbitcoin-node.svg?branch=master)](https://travis-ci.org/libbitcoin/libbitcoin-node)
-
-[![Coverage Status](https://coveralls.io/repos/libbitcoin/libbitcoin-node/badge.svg)](https://coveralls.io/r/libbitcoin/libbitcoin-node)
+[![Build Status](https://travis-ci.org/bitprim/bitprim-node.svg?branch=master)](https://travis-ci.org/bitprim/bitprim-node)
 
 # Bitprim Node
 
