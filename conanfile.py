@@ -33,9 +33,10 @@ class BitprimNodeConan(ConanFile):
 
     options = {"shared": [True, False],
                "fPIC": [True, False],
-               "with_litecoin": [True, False],
                "with_tests": [True, False],
+               "currency": ['BCH', 'BTC', 'LTC']
     }
+    #    "with_litecoin": [True, False],
 
     # "with_remote_blockchain": [True, False],
     # "with_remote_database": [True, False],
@@ -43,8 +44,10 @@ class BitprimNodeConan(ConanFile):
 
     default_options = "shared=False", \
         "fPIC=True", \
-        "with_litecoin=False", \
-        "with_tests=False"
+        "with_tests=False", \
+        "currency=BCH"
+
+    # "with_litecoin=False", \
 
     # "with_remote_blockchain=False", \
     # "with_remote_database=False", \
@@ -115,12 +118,14 @@ class BitprimNodeConan(ConanFile):
         cmake.definitions["WITH_REMOTE_DATABASE"] = option_on_off(self.with_remote_database)
 
         cmake.definitions["WITH_TESTS"] = option_on_off(self.options.with_tests)
-        cmake.definitions["WITH_CONSOLE"] = option_on_off(self.with_console)
+        # cmake.definitions["WITH_CONSOLE"] = option_on_off(self.with_console)
 
         # cmake.definitions["WITH_TESTS"] = option_on_off(self.with_tests)
         # cmake.definitions["WITH_CONSOLE"] = option_on_off(self.options.with_console)
 
-        cmake.definitions["WITH_LITECOIN"] = option_on_off(self.options.with_litecoin)
+        # cmake.definitions["WITH_LITECOIN"] = option_on_off(self.options.with_litecoin)
+
+        cmake.definitions["CURRENCY"] = self.options.currency
 
 
         if self.settings.compiler != "Visual Studio":
