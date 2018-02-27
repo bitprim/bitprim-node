@@ -37,7 +37,7 @@ struct multi_crypto_setter {
     multi_crypto_setter(network::settings const& net_settings) {
 // #ifndef BITPRIM_LITECOIN
 #if defined(BITPRIM_CURRENCY_BCH)
-        set_currency(config::currency::bitcoin_cash);
+        // set_currency(config::currency::bitcoin_cash);
         set_network(net_settings.identifier);
         switch (get_network()) {
             case config::settings::mainnet:
@@ -51,11 +51,11 @@ struct multi_crypto_setter {
                 break;
         }
 #elif defined(BITPRIM_CURRENCY_BTC)
-        set_currency(config::currency::bitcoin);
+        // set_currency(config::currency::bitcoin);
         set_network(net_settings.identifier);
         // set_cashaddr_prefix("");
 #else //BITPRIM_CURRENCY_BCH
-        set_currency(config::currency::litecoin);
+        // set_currency(config::currency::litecoin);
         set_network(net_settings.identifier);
         // set_cashaddr_prefix("");
 #endif //BITPRIM_CURRENCY_BCH
