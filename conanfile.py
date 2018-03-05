@@ -50,7 +50,8 @@ class BitprimNodeConan(ConanFile):
     options = {"shared": [True, False],
                "fPIC": [True, False],
                "with_tests": [True, False],
-               "currency": ['BCH', 'BTC', 'LTC']
+               "currency": ['BCH', 'BTC', 'LTC'],
+               "verbose": [True, False],
     }
     #    "with_litecoin": [True, False],
 
@@ -61,7 +62,9 @@ class BitprimNodeConan(ConanFile):
     default_options = "shared=False", \
         "fPIC=True", \
         "with_tests=False", \
-        "currency=BCH"
+        "currency=BCH", \
+        "verbose=False"
+        
 
     # "with_litecoin=False", \
 
@@ -72,7 +75,7 @@ class BitprimNodeConan(ConanFile):
 
     with_remote_blockchain = False
     with_remote_database = False
-    with_console = False
+    # with_console = False
 
     generators = "cmake"
     exports = "conan_channel", "conan_version"
@@ -113,6 +116,7 @@ class BitprimNodeConan(ConanFile):
 
     def package_id(self):
         self.info.options.with_tests = "ANY"
+        self.info.options.verbose = "ANY"
 
         #For Bitprim Packages libstdc++ and libstdc++11 are the same
         if self.settings.compiler == "gcc" or self.settings.compiler == "clang":
@@ -126,7 +130,9 @@ class BitprimNodeConan(ConanFile):
         cmake.definitions["NO_CONAN_AT_ALL"] = option_on_off(False)
 
         # cmake.definitions["CMAKE_VERBOSE_MAKEFILE"] = option_on_off(False)
-        cmake.verbose = False
+        # cmake.verbose = False
+        cmake.verbose = self.options.verbose
+        
 
         cmake.definitions["ENABLE_SHARED"] = option_on_off(self.is_shared)
         cmake.definitions["ENABLE_POSITION_INDEPENDENT_CODE"] = option_on_off(self.fPIC_enabled)
