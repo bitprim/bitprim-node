@@ -521,20 +521,13 @@ options_metadata parser::load_settings()
 
 config::checkpoint::list parser::default_checkpoints() {
     //case config::settings::mainnet:
-
-// #ifdef BITPRIM_LITECOIN
-//     auto const testnet = (configured.network.identifier == 4056470269u); //Litecoin
-// #else
-//     auto const testnet = (configured.network.identifier == 118034699u);  //Bitcoin
-// #endif //BITPRIM_LITECOIN
-    // bool const testnet = is_testnet(configured.network.identifier, configured.network.bitcoin_cash);
-
-    
+   
 
     config::checkpoint::list checkpoints;
 
+//TODO(fernando): Set Litecoin checkpoints
 #if defined(BITPRIM_CURRENCY_BCH)
-    if (get_network() == config::settings::testnet) {
+    if (get_network(configured.network.identifier) == config::settings::testnet) {
         checkpoints.reserve(15);
         checkpoints.emplace_back("000000000933ea01ad0ee984209779baaec3ced90fa3f408719526f8d77f4943", 0);
         checkpoints.emplace_back("00000000009e2958c15ff9290d571bf9459e93b19765c6801ddeccadbb160a1e", 100000);
@@ -582,7 +575,7 @@ config::checkpoint::list parser::default_checkpoints() {
         checkpoints.emplace_back("000000000000000000651ef99cb9fcbe0dadde1d424bd9f15ff20136191a5eec", 478559);
     }
 #elif defined(BITPRIM_CURRENCY_BTC)
-    if (get_network() == config::settings::testnet) {
+    if (get_network(configured.network.identifier) == config::settings::testnet) {
         checkpoints.reserve(15);
         checkpoints.emplace_back("000000000933ea01ad0ee984209779baaec3ced90fa3f408719526f8d77f4943", 0);
         checkpoints.emplace_back("00000000009e2958c15ff9290d571bf9459e93b19765c6801ddeccadbb160a1e", 100000);

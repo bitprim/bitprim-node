@@ -48,9 +48,7 @@ full_node::full_node(const configuration& configuration)
     protocol_maximum_(configuration.network.protocol_maximum),
     chain_settings_(configuration.chain),
     node_settings_(configuration.node)
-{
-    // set_bitcoin_cash(configuration.network.bitcoin_cash);
-}
+{}
 
 full_node::~full_node()
 {

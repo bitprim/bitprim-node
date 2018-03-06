@@ -35,28 +35,40 @@ namespace node {
 
 struct multi_crypto_setter {
     multi_crypto_setter(network::settings const& net_settings) {
-// #ifndef BITPRIM_LITECOIN
 #if defined(BITPRIM_CURRENCY_BCH)
-        // set_currency(config::currency::bitcoin_cash);
-        set_network(net_settings.identifier);
-        switch (get_network()) {
-            case config::settings::mainnet:
+        // set_network(net_settings.identifier);
+        // switch (get_network()) {
+        //     case config::settings::mainnet:
+        //         set_cashaddr_prefix("bitcoincash");
+        //         break;
+        //     case config::settings::testnet:
+        //         set_cashaddr_prefix("bchtest");
+        //         break;
+        //     case config::settings::regtest:
+        //         set_cashaddr_prefix("bchreg");
+        //         break;
+        // }
+
+        switch (net_settings.identifier) {
+            case netmagic::bch_mainnet:
                 set_cashaddr_prefix("bitcoincash");
                 break;
-            case config::settings::testnet:
+            case netmagic::bch_testnet: 
                 set_cashaddr_prefix("bchtest");
                 break;
-            case config::settings::regtest:
+            case netmagic::bch_regtest: 
                 set_cashaddr_prefix("bchreg");
                 break;
+            default: 
+                set_cashaddr_prefix("");
         }
+
+
 #elif defined(BITPRIM_CURRENCY_BTC)
-        // set_currency(config::currency::bitcoin);
-        set_network(net_settings.identifier);
+        // set_network(net_settings.identifier);
         // set_cashaddr_prefix("");
 #else //BITPRIM_CURRENCY_BCH
-        // set_currency(config::currency::litecoin);
-        set_network(net_settings.identifier);
+        // set_network(net_settings.identifier);
         // set_cashaddr_prefix("");
 #endif //BITPRIM_CURRENCY_BCH
     }
