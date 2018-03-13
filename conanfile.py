@@ -25,10 +25,14 @@ from conans.model.version import Version
 def option_on_off(option):
     return "ON" if option else "OFF"
 
-def get_content(path):
+
+def get_content(file_name):
     # print(os.path.dirname(os.path.abspath(__file__)))
     # print(os.getcwd())
-    with open(path, 'r') as f:
+    # with open(path, 'r') as f:
+    #     return f.read()
+    file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), file_name)
+    with open(file_path, 'r') as f:
         return f.read()
 
 def get_version():
@@ -83,7 +87,7 @@ class BitprimNodeConan(ConanFile):
     # with_console = False
 
     generators = "cmake"
-    exports = "conan_channel", "conan_version"
+    exports = "conan_channel", "conan_version", "conan_req_version"
     exports_sources = "src/*", "CMakeLists.txt", "cmake/*", "bitprim-nodeConfig.cmake.in", "bitprimbuildinfo.cmake", "include/*", "test/*", "console/*"
     package_files = "build/lbitprim-node.a"
     build_policy = "missing"
