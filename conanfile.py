@@ -39,7 +39,8 @@ class BitprimNodeConan(BitprimConanFile):
                "currency": ['BCH', 'BTC', 'LTC'],
                "microarchitecture": "ANY", #["x86_64", "haswell", "ivybridge", "sandybridge", "bulldozer", ...]
                "fix_march": [True, False],
-               "verbose": [True, False]
+               "verbose": [True, False],
+               "keoken": [True, False]
 
     }
     # "with_remote_blockchain": [True, False],
@@ -52,12 +53,12 @@ class BitprimNodeConan(BitprimConanFile):
         "currency=BCH", \
         "microarchitecture=_DUMMY_",  \
         "fix_march=False", \
-        "verbose=False"
+        "verbose=False", \
+        "keoken=False"
 
     # "with_remote_blockchain=False", \
     # "with_remote_database=False", \
     # "with_console=True", \
-
 
     with_remote_blockchain = False
     with_remote_database = False
@@ -122,6 +123,7 @@ class BitprimNodeConan(BitprimConanFile):
         # cmake.definitions["WITH_CONSOLE"] = option_on_off(self.with_console)
 
         cmake.definitions["CURRENCY"] = self.options.currency
+        cmake.definitions["WITH_KEOKEN"] = option_on_off(self.options.keoken)
 
         if self.settings.compiler != "Visual Studio":
             cmake.definitions["CONAN_CXX_FLAGS"] = cmake.definitions.get("CONAN_CXX_FLAGS", "") + " -Wno-deprecated-declarations"
