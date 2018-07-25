@@ -1,7 +1,7 @@
 /**
- * Copyright (c) 2011-2017 libbitcoin developers (see AUTHORS)
+ * Copyright (c) 2016-2018 Bitprim Inc.
  *
- * This file is part of libbitcoin.
+ * This file is part of Bitprim.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -54,28 +54,16 @@ void manager::initialize_from_blockchain() {
 
 // Queries
 manager::get_assets_by_address_list manager::get_assets_by_address(payment_address const& addr) const {
-    // return get_assets_by_address_list{};
-
-
-    // 1. consultar assets para 1 address
-    /*/
-        input: addr
-        out  : lista de 
-                    - asset id
-                    - asset name
-                    - addr is owner of the asset
-                    - saldo
-    */    
+    return state_.get_assets_by_address(addr);
 }
 
 manager::get_assets_list manager::get_assets() const {
-    return get_assets_list{};
+    return state_.get_assets();
 }
 
 manager::get_all_asset_addresses_list manager::get_all_asset_addresses() const {
-    return get_all_asset_addresses_list{};
+    return state_.get_all_asset_addresses();
 }
-
 
 } // namespace keoken
 } // namespace bitprim

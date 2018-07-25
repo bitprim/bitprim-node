@@ -19,33 +19,21 @@
 #ifndef BITPRIM_KEOKEN_MANAGER_HPP_
 #define BITPRIM_KEOKEN_MANAGER_HPP_
 
-// #include <cstdint>
-// #include <memory>
-// #include <bitcoin/blockchain.hpp>
-// #include <bitcoin/network.hpp>
-// #include <bitcoin/bitcoin/multi_crypto_support.hpp>
-// #include <bitcoin/node/configuration.hpp>
-// #include <bitcoin/node/define.hpp>
-// #include <bitcoin/node/sessions/session_block_sync.hpp>
-// #include <bitcoin/node/sessions/session_header_sync.hpp>
-// #include <bitcoin/node/utility/check_list.hpp>
-
 #include <bitcoin/bitcoin/wallet/payment_address.hpp>
 #include <bitcoin/blockchain/interface/block_chain.hpp>
 #include <bitcoin/node/define.hpp>
 
 #include <bitprim/keoken/interpreter.hpp>
-
+#include <bitprim/keoken/state.hpp>
 
 namespace bitprim {
 namespace keoken {
 
-
 class BCN_API manager {
 public:
-    using get_assets_by_address_list = std::vector<get_assets_by_address_data>;
-    using get_assets_list = std::vector<get_assets_data>;
-    using get_all_asset_addresses_list = std::vector<get_all_asset_addresses_data>;
+    using get_assets_by_address_list = state::get_assets_by_address_list;
+    using get_assets_list = state::get_assets_list;
+    using get_all_asset_addresses_list = state::get_all_asset_addresses_list;
 
     explicit
     manager(libbitcoin::blockchain::block_chain& chain, size_t keoken_genesis_height);
