@@ -21,6 +21,7 @@
 
 #include <boost/thread.hpp>
 
+#include <bitcoin/bitcoin/message/messages.hpp>
 #include <bitcoin/bitcoin/wallet/payment_address.hpp>
 #include <bitcoin/blockchain/interface/block_chain.hpp>
 #include <bitcoin/node/define.hpp>
@@ -56,16 +57,12 @@ public:
 
 private:
     void for_each_transaction_non_coinbase(size_t height, libbitcoin::chain::block const& block);
-    // bool handle_reorganized(libbitcoin::code ec, size_t fork_height, block_const_ptr_list_const_ptr incoming, block_const_ptr_list_const_ptr outgoing);
-
+    bool handle_reorganized(libbitcoin::code ec, size_t fork_height, libbitcoin::block_const_ptr_list_const_ptr incoming, libbitcoin::block_const_ptr_list_const_ptr outgoing);
 
     state state_;
     size_t keoken_genesis_height_;
     libbitcoin::blockchain::block_chain& chain_;
     interpreter interpreter_;
-
-    // Synchronization
-    mutable boost::shared_mutex mutex_;
 };
 
 } // namespace keoken

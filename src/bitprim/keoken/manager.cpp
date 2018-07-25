@@ -22,11 +22,8 @@ namespace bitprim {
 namespace keoken {
 
 using namespace bc;
+using namespace std::placeholders;
 using bc::wallet::payment_address;
-using std::placeholders::_1;
-using std::placeholders::_2;
-using std::placeholders::_3;
-using std::placeholders::_4;
 
 manager::manager(libbitcoin::blockchain::block_chain& chain, size_t keoken_genesis_height) 
     : keoken_genesis_height_(keoken_genesis_height)
@@ -66,39 +63,38 @@ void manager::initialize_from_blockchain() {
 
     initialize_from_blockchain(keoken_genesis_height_, top_height);
 
-    // chain_.subscribe_blockchain(std::bind(&manager::handle_reorganized, this, _1, _2, _3, _4));
+    chain_.subscribe_blockchain(std::bind(&manager::handle_reorganized, this, _1, _2, _3, _4));
 }
 
-// // A typical reorganization consists of one incoming and zero outgoing blocks.
-// bool manager::handle_reorganized(code ec, size_t fork_height, block_const_ptr_list_const_ptr incoming, block_const_ptr_list_const_ptr outgoing) {
-//     if (ec == error::service_stopped) { //stopped() || 
-//         return false;
-//     }
+// A typical reorganization consists of one incoming and zero outgoing blocks.
+bool manager::handle_reorganized(code ec, size_t fork_height, block_const_ptr_list_const_ptr incoming, block_const_ptr_list_const_ptr outgoing) {
+    if (ec == error::service_stopped) { //stopped() || 
+        return false;
+    }
 
-//     if (ec) {
-//         return false;
-//     }
+    if (ec) {
+        return false;
+    }
 
-//     // Nothing to do here.
-//     if ( ! incoming || incoming->empty()) {
-//         return true;
-//     }
+    // Nothing to do here.
+    if ( ! incoming || incoming->empty()) {
+        return true;
+    }
 
-//     for (auto const& block_ptr: *incoming) {
-//         for_each_transaction_non_coinbase(fork_height++, *block_ptr);
-//     }
+    for (auto const& block_ptr: *incoming) {
+        for_each_transaction_non_coinbase(fork_height++, *block_ptr);
+    }
 
-//     // for (const auto block: *outgoing)
-//     //     LOG_DEBUG(LOG_NODE)
-//     //         << "Reorganization moved block to orphan pool ["
-//     //         << encode_hash(block->header().hash()) << "]";
-//     // const auto height = safe_add(fork_height, incoming->size());
-//     // set_top_block({ incoming->back()->hash(), height });
+    // for (const auto block: *outgoing)
+    //     LOG_DEBUG(LOG_NODE)
+    //         << "Reorganization moved block to orphan pool ["
+    //         << encode_hash(block->header().hash()) << "]";
+    // const auto height = safe_add(fork_height, incoming->size());
+    // set_top_block({ incoming->back()->hash(), height });
 
 
-//     return true;
-// }
-
+    return true;
+}
 
 // Queries
 manager::get_assets_by_address_list manager::get_assets_by_address(payment_address const& addr) const {
