@@ -33,7 +33,8 @@ settings::settings()
     rpc_port(8332),
     testnet(false),
     subscriber_port(5556),
-    compact_blocks_high_bandwidth(true)
+    compact_blocks_high_bandwidth(true),
+    keoken_genesis_height(libbitcoin::max_size_t)
 {
     rpc_allow_ip.push_back("127.0.0.1");
 }

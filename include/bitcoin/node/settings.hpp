@@ -48,6 +48,7 @@ public:
 
     //Compact Blocks
     bool compact_blocks_high_bandwidth;
+    size_t keoken_genesis_height;
 
     /// Helpers.
     asio::duration block_latency() const;
