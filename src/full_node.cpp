@@ -48,7 +48,7 @@ full_node::full_node(const configuration& configuration)
     , chain_settings_(configuration.chain)
     , node_settings_(configuration.node)
 #ifdef WITH_KEOKEN
-    , keoken_manager_(chain_, 0)        //TODO(fernando): use settings for keoken_genesis_height
+    , keoken_manager_(chain_, node_settings().keoken_genesis_height)        //TODO(fernando): use settings for keoken_genesis_height
 #endif
 {}
 
