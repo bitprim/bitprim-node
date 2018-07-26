@@ -314,6 +314,13 @@ block_chain& full_node::chain_bitprim()
 {
     return chain_;
 }
+
+#ifdef WITH_KEOKEN
+bitprim::keoken::manager& full_node::keoken_manager() {
+    return keoken_manager_;
+}
+#endif
+
 // Subscriptions.
 // ----------------------------------------------------------------------------
 

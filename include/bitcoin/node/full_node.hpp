@@ -119,6 +119,10 @@ public:
     //TODO: remove this function and use safe_chain in the rpc lib
     virtual blockchain::block_chain& chain_bitprim();
 
+#ifdef WITH_KEOKEN
+    bitprim::keoken::manager& keoken_manager();
+#endif
+
     // Subscriptions.
     // ------------------------------------------------------------------------
 

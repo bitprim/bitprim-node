@@ -46,16 +46,17 @@ public:
     manager& operator=(manager const&) = delete;
 
     // Commands
-    void initialize_from_blockchain(size_t from_height, size_t to_height);
-    // void initialize_from_blockchain(size_t from_height);
     void initialize_from_blockchain();
 
     // Queries
+    bool initialized() const;
     get_assets_by_address_list get_assets_by_address(libbitcoin::wallet::payment_address const& addr) const;
     get_assets_list get_assets() const;
     get_all_asset_addresses_list get_all_asset_addresses() const;
 
 private:
+    void initialize_from_blockchain(size_t from_height, size_t to_height);
+    // void initialize_from_blockchain(size_t from_height);
     void for_each_transaction_non_coinbase(size_t height, libbitcoin::chain::block const& block);
     bool handle_reorganized(libbitcoin::code ec, size_t fork_height, libbitcoin::block_const_ptr_list_const_ptr incoming, libbitcoin::block_const_ptr_list_const_ptr outgoing);
 
@@ -63,6 +64,8 @@ private:
     size_t keoken_genesis_height_;
     libbitcoin::blockchain::block_chain& chain_;
     interpreter interpreter_;
+    bool initialized_ = false;
+    size_t processed_height_;
 };
 
 } // namespace keoken
