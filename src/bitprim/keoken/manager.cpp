@@ -30,6 +30,7 @@ using bc::wallet::payment_address;
 
 manager::manager(libbitcoin::blockchain::block_chain& chain, size_t keoken_genesis_height) 
     : keoken_genesis_height_(keoken_genesis_height)
+    , state_(keoken_genesis_height_)
     , chain_(chain)
     , interpreter_(chain_, state_)
     , initialized_(false)

@@ -60,8 +60,8 @@ private:
     void for_each_transaction_non_coinbase(size_t height, libbitcoin::chain::block const& block);
     bool handle_reorganized(libbitcoin::code ec, size_t fork_height, libbitcoin::block_const_ptr_list_const_ptr incoming, libbitcoin::block_const_ptr_list_const_ptr outgoing);
 
-    state state_;
     size_t keoken_genesis_height_;
+    state state_;
     libbitcoin::blockchain::block_chain& chain_;
     interpreter interpreter_;
     bool initialized_ = false;

@@ -17,9 +17,8 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-import os
 from conans import CMake
-from ci_utils import option_on_off, get_version, get_conan_req_version, march_conan_manip, pass_march_to_compiler
+from ci_utils import option_on_off, march_conan_manip, pass_march_to_compiler
 from ci_utils import BitprimConanFile
 
 class BitprimNodeConan(BitprimConanFile):
@@ -70,6 +69,9 @@ class BitprimNodeConan(BitprimConanFile):
     package_files = "build/lbitprim-node.a"
     build_policy = "missing"
 
+    @property
+    def is_keoken(self):
+        return self.options.currency == "BCH" and self.options.get_safe("keoken")
 
     def requirements(self):
         self.requires("boost/1.66.0@bitprim/stable")
@@ -97,6 +99,12 @@ class BitprimNodeConan(BitprimConanFile):
             march_conan_manip(self)
             self.options["*"].microarchitecture = self.options.microarchitecture
 
+        if self.options.keoken and self.options.currency != "BCH":
+            self.output.warn("For the moment Keoken is only enabled for BCH. Building without Keoken support...")
+            del self.options.keoken
+        else:
+            self.options["*"].keoken = self.options.keoken
+
         self.options["*"].currency = self.options.currency
         self.output.info("Compiling for currency: %s" % (self.options.currency,))
 
@@ -123,7 +131,7 @@ class BitprimNodeConan(BitprimConanFile):
         # cmake.definitions["WITH_CONSOLE"] = option_on_off(self.with_console)
 
         cmake.definitions["CURRENCY"] = self.options.currency
-        cmake.definitions["WITH_KEOKEN"] = option_on_off(self.options.keoken)
+        cmake.definitions["WITH_KEOKEN"] = option_on_off(self.is_keoken)
 
         if self.settings.compiler != "Visual Studio":
             cmake.definitions["CONAN_CXX_FLAGS"] = cmake.definitions.get("CONAN_CXX_FLAGS", "") + " -Wno-deprecated-declarations"
