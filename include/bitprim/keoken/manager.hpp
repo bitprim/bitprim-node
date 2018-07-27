@@ -16,10 +16,8 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef BITPRIM_KEOKEN_MANAGER_HPP_
-#define BITPRIM_KEOKEN_MANAGER_HPP_
-
-#include <boost/thread.hpp>
+#ifndef BITPRIM_NODE_KEOKEN_MANAGER_HPP_
+#define BITPRIM_NODE_KEOKEN_MANAGER_HPP_
 
 #include <bitcoin/bitcoin/message/messages.hpp>
 #include <bitcoin/bitcoin/wallet/payment_address.hpp>
@@ -71,38 +69,4 @@ private:
 } // namespace keoken
 } // namespace bitprim
 
-#endif //BITPRIM_KEOKEN_MANAGER_HPP_
-
-
-
-
-    // 1. consultar assets para 1 address
-    /*/
-        input: addr
-        out  : lista de 
-                    - asset id
-                    - asset name
-                    - addr is owner of the asset
-                    - saldo
-    */
-
-    // 2. listado de assets con su amount inicial
-    /*/
-        input: NADA
-        out  : lista de 
-                    - asset id
-                    - asset name
-                    - addr owner
-                    - amount
-    */
-
-    // 3. listar todas las wallets con tokens en keoken (saldo mayor a cero)
-    /*/
-        input: NADA
-        out  : lista de 
-                    - address **
-                    - asset id
-                    - asset name
-                    - addr owner
-                    - amount
-    */
+#endif //BITPRIM_NODE_KEOKEN_MANAGER_HPP_

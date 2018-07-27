@@ -20,6 +20,7 @@
 
 #include <bitcoin/bitcoin/chain/transaction.hpp>
 
+#include <bitprim/keoken/node_constants.hpp>
 
 namespace bitprim {
 namespace keoken {
@@ -32,7 +33,7 @@ using bc::wallet::payment_address;
 
 manager::manager(bc::blockchain::block_chain& chain, size_t keoken_genesis_height) 
     : keoken_genesis_height_(keoken_genesis_height)
-    , state_(keoken_genesis_height_)
+    , state_(asset_id_initial)
     , chain_(chain)
     , interpreter_(chain_, state_)
     , initialized_(false)
