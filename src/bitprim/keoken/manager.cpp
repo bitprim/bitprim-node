@@ -18,17 +18,19 @@
  */
 #include <bitprim/keoken/manager.hpp>
 
+#include <bitcoin/bitcoin/chain/transaction.hpp>
+
+
 namespace bitprim {
 namespace keoken {
 
-using namespace bc;
 using std::placeholders::_1;
 using std::placeholders::_2;
 using std::placeholders::_3;
 using std::placeholders::_4;
 using bc::wallet::payment_address;
 
-manager::manager(libbitcoin::blockchain::block_chain& chain, size_t keoken_genesis_height) 
+manager::manager(bc::blockchain::block_chain& chain, size_t keoken_genesis_height) 
     : keoken_genesis_height_(keoken_genesis_height)
     , state_(keoken_genesis_height_)
     , chain_(chain)
@@ -43,8 +45,8 @@ void manager::initialize_from_blockchain(size_t from_height, size_t to_height) {
     bool witness = false;   //TODO(fernando): what to do with this...
 
     chain_.for_each_transaction_non_coinbase(from_height, to_height, witness, 
-        [this](code const& ec, size_t height, chain::transaction const& tx) {
-            if (ec == error::success) {
+        [this](bc::code const& ec, size_t height, bc::chain::transaction const& tx) {
+            if (ec == bc::error::success) {
                 interpreter_.process(height, tx);
             }
         }
@@ -52,8 +54,8 @@ void manager::initialize_from_blockchain(size_t from_height, size_t to_height) {
 }
 
 //TODO(fernando): move to other site
-void manager::for_each_transaction_non_coinbase(size_t height, chain::block const& block) {
-    std::for_each(std::next(block.transactions().begin()), block.transactions().end(), [this, height](chain::transaction const& tx) {
+void manager::for_each_transaction_non_coinbase(size_t height, bc::chain::block const& block) {
+    std::for_each(std::next(block.transactions().begin()), block.transactions().end(), [this, height](bc::chain::transaction const& tx) {
         interpreter_.process(height, tx);
     });
 }
@@ -75,8 +77,8 @@ void manager::initialize_from_blockchain() {
 }
 
 // A typical reorganization consists of one incoming and zero outgoing blocks.
-bool manager::handle_reorganized(code ec, size_t fork_height, block_const_ptr_list_const_ptr incoming, block_const_ptr_list_const_ptr outgoing) {
-    if (ec == error::service_stopped) { //stopped() || 
+bool manager::handle_reorganized(bc::code ec, size_t fork_height, bc::block_const_ptr_list_const_ptr const& incoming, bc::block_const_ptr_list_const_ptr const& /*outgoing*/) {
+    if (ec == bc::error::service_stopped) { //stopped() || 
         return false;
     }
 

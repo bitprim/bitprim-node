@@ -39,7 +39,7 @@ public:
     using get_all_asset_addresses_list = state::get_all_asset_addresses_list;
 
     explicit
-    manager(libbitcoin::blockchain::block_chain& chain, size_t keoken_genesis_height);
+    manager(bc::blockchain::block_chain& chain, size_t keoken_genesis_height);
 
     // non-copyable class
     manager(manager const&) = delete;
@@ -50,21 +50,21 @@ public:
 
     // Queries
     bool initialized() const;
-    get_assets_by_address_list get_assets_by_address(libbitcoin::wallet::payment_address const& addr) const;
+    get_assets_by_address_list get_assets_by_address(bc::wallet::payment_address const& addr) const;
     get_assets_list get_assets() const;
     get_all_asset_addresses_list get_all_asset_addresses() const;
 
 private:
     void initialize_from_blockchain(size_t from_height, size_t to_height);
     // void initialize_from_blockchain(size_t from_height);
-    void for_each_transaction_non_coinbase(size_t height, libbitcoin::chain::block const& block);
-    bool handle_reorganized(libbitcoin::code ec, size_t fork_height, libbitcoin::block_const_ptr_list_const_ptr incoming, libbitcoin::block_const_ptr_list_const_ptr outgoing);
+    void for_each_transaction_non_coinbase(size_t height, bc::chain::block const& block);
+    bool handle_reorganized(bc::code ec, size_t fork_height, bc::block_const_ptr_list_const_ptr const& incoming, bc::block_const_ptr_list_const_ptr const& outgoing);
 
     size_t keoken_genesis_height_;
     state state_;
-    libbitcoin::blockchain::block_chain& chain_;
+    bc::blockchain::block_chain& chain_;
     interpreter interpreter_;
-    bool initialized_ = false;
+    bool initialized_;
     size_t processed_height_;
 };
 
