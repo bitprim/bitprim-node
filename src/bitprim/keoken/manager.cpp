@@ -38,6 +38,7 @@ manager::manager(libbitcoin::blockchain::block_chain& chain, size_t keoken_genes
 {}
 
 //TODO(fernando): change the name
+// private
 void manager::initialize_from_blockchain(size_t from_height, size_t to_height) {
     bool witness = false;   //TODO(fernando): what to do with this...
 
