@@ -585,11 +585,14 @@ options_metadata parser::load_settings()
         value<bool>(&configured.node.compact_blocks_high_bandwidth),
         "Compact Blocks High-Bandwidth mode, default to true."
     )
+#ifdef WITH_KEOKEN
     (
         "node.keoken_genesis_height",
         value<size_t>(&configured.node.keoken_genesis_height),
         "Block height where the first keoken transaction is stored."
-    );
+    )
+#endif
+    ;
 
     return description;
 }
