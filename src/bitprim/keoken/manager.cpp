@@ -43,7 +43,7 @@ void manager::initialize_from_blockchain(size_t from_height, size_t to_height) {
 
     chain_.for_each_transaction_non_coinbase(from_height, to_height, witness, 
         [this](code const& ec, size_t height, chain::transaction const& tx) {
-            if (ec == error::success) {
+          if (ec == libbitcoin::error::success) {
                 interpreter_.process(height, tx);
             }
         }
@@ -75,7 +75,7 @@ void manager::initialize_from_blockchain() {
 
 // A typical reorganization consists of one incoming and zero outgoing blocks.
 bool manager::handle_reorganized(code ec, size_t fork_height, block_const_ptr_list_const_ptr incoming, block_const_ptr_list_const_ptr outgoing) {
-    if (ec == error::service_stopped) { //stopped() || 
+    if (ec == libbitcoin::error::service_stopped) { //stopped() ||
         return false;
     }
 
