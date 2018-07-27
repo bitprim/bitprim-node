@@ -22,7 +22,7 @@
 namespace bitprim {
 namespace keoken {
 
-size_t constexpr asset_id_initial = 2048;
+size_t constexpr asset_id_initial = 1;
 
 } // namespace keoken
 } // namespace bitprim
