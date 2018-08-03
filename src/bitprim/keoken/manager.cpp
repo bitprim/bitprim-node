@@ -33,12 +33,26 @@ using bc::wallet::payment_address;
 
 manager::manager(bc::blockchain::block_chain& chain, size_t keoken_genesis_height) 
     : keoken_genesis_height_(keoken_genesis_height)
-    , state_(asset_id_initial)
+    // , state_(asset_id_initial)
     , chain_(chain)
     , interpreter_(state_, chain_)
     , initialized_(false)
     , processed_height_(keoken_genesis_height - 1)
 {}
+
+
+// void configure_state(create_asset_func create_asset, create_balance_entry_func create_balance_entry
+//                 , asset_id_exists_func asset_id_exists, get_balance_func get_balance
+//                 , get_assets_by_address_func get_assets_by_address, get_assets_func get_assets
+//                 , get_all_asset_addresses_func get_all_asset_addresses);
+
+void manager::configure_state(state_t::set_initial_asset_id_func set_initial_asset_id, 
+                              state_t::asset_id_exists_func asset_id_exists) {
+
+    state_.set_initial_asset_id = set_initial_asset_id;
+    state_.asset_id_exists = asset_id_exists;
+}
+
 
 //TODO(fernando): change the name
 // private
@@ -108,6 +122,8 @@ bool manager::handle_reorganized(bc::code ec, size_t fork_height, bc::block_cons
     //         << encode_hash(block->header().hash()) << "]";
     // const auto height = safe_add(fork_height, incoming->size());
     // set_top_block({ incoming->back()->hash(), height });
+
+    //TODO(fernando): Important! See what to do in case of re-organizations
 
     return true;
 }
