@@ -27,8 +27,7 @@
 #include <bitcoin/node/define.hpp>
 
 #include <bitprim/keoken/interpreter.hpp>
-
-// #include <bitprim/keoken/state.hpp>
+#include <bitprim/keoken/node_constants.hpp>
 #include <bitprim/keoken/state_delegated.hpp>
 
 namespace bitprim {
