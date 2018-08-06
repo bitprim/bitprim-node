@@ -212,22 +212,24 @@ public:
     using get_all_asset_addresses_func = typename state_delegated::get_all_asset_addresses_func;
 
     using base_manager<state_delegated>::base_manager;
+    
+    void configure_state(set_initial_asset_id_func set_initial_asset_id
+                    , create_asset_func create_asset
+                    , create_balance_entry_func create_balance_entry
+                    , asset_id_exists_func asset_id_exists
+                    , get_balance_func get_balance
+                    , get_assets_by_address_func get_assets_by_address
+                    , get_assets_func get_assets
+                    , get_all_asset_addresses_func get_all_asset_addresses);
 
-    // Commands
-    // void configure(create_asset_func create_asset, create_balance_entry_func create_balance_entry
-    //                 , asset_id_exists_func asset_id_exists, get_balance_func get_balance
-    //                 , get_assets_by_address_func get_assets_by_address, get_assets_func get_assets
-    //                 , get_all_asset_addresses_func get_all_asset_addresses);
-
-// void configure_state(create_asset_func create_asset, create_balance_entry_func create_balance_entry
-//                 , asset_id_exists_func asset_id_exists, get_balance_func get_balance
-//                 , get_assets_by_address_func get_assets_by_address, get_assets_func get_assets
-//                 , get_all_asset_addresses_func get_all_asset_addresses);
-
-    void configure_state(set_initial_asset_id_func set_initial_asset_id, 
-                         asset_id_exists_func asset_id_exists) {
         state().set_initial_asset_id = set_initial_asset_id;
+        state().create_asset = create_asset;
+        state().create_balance_entry = create_balance_entry;
         state().asset_id_exists = asset_id_exists;
+        state().get_balance = get_balance;
+        state().get_assets_by_address = get_assets_by_address;
+        state().get_assets = get_assets;
+        state().get_all_asset_addresses = get_all_asset_addresses;
     }
 };
 
