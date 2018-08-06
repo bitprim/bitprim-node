@@ -91,6 +91,8 @@ public:
 
         initialized_ = true;
 
+        state_.set_initial_asset_id(asset_id_initial);
+
         size_t top_height;
         if ( ! chain_.get_last_height(top_height)) {
             return; //TODO(fernando): qué hacemos acá?
