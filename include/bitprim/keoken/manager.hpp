@@ -132,11 +132,6 @@ private:
             return false;
         }
 
-        if ( ! outgoing || ! outgoing->empty()) {
-            //Reorg
-            state_.rollback_to(fork_height);
-        }
-
         // Nothing to do here.
         if ( ! incoming || incoming->empty()) {
             return true;
@@ -144,6 +139,11 @@ private:
         
         if (processed_height_ + 1 < fork_height) {
             initialize_from_blockchain(processed_height_ + 1, fork_height - 1);
+        }
+
+        if ( ! outgoing || ! outgoing->empty()) {
+            //Reorg
+            state_.rollback_to(fork_height);
         }
 
         for (auto const& block_ptr: *incoming) {
