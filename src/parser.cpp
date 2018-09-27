@@ -582,7 +582,7 @@ options_metadata parser::load_settings()
     )
     (
         "node.rpc_allow_all_ips",
-        value<std::vector<std::string>>(&configured.node.rpc_allow_all_ips),
+        value<bool>(&configured.node.rpc_allow_all_ips),
         "RPC allowed ip defaults to false."
     )
     (
